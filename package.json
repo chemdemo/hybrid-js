@@ -1,0 +1,39 @@
+{
+  "name": "hybrid-js",
+  "version": "0.0.1",
+  "description": "jsbridge layer",
+  "homepage": "http://gitlab.meizu.com/fife/hybrid-js",
+  "keywords": [
+    "jsbridge",
+    "hybrid"
+  ],
+  "contributors": [
+    "dmyang"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.meizu.com/fife/hybrid-js.git"
+  },
+  "bugs": {
+    "url": "http://gitlab.meizu.com/fife/hybrid-js/issues"
+  },
+  "main": "assets/hybrid.min.js",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^6.0.15",
+    "babel-core": "^6.1.2",
+    "babel-loader": "^6.1.0",
+    "webpack": "^1.12.3"
+  },
+  "scripts": {
+    "install": "npm install --registry=http://registry.npm.taobao.org/",
+    "lint": "",
+    "test": "",
+    "pub": "git push",
+    "build": "webpack"
+  },
+  "pre-commit": [
+    "lint"
+  ]
+}
