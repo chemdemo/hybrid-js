@@ -2,7 +2,7 @@
  * @Author: dmyang
  * @Date:   2015-11-10 10:42:22
  * @Last Modified by:   dm
- * @Last Modified time: 2015-12-30 20:04:21
+ * @Last Modified time: 2015-12-30 20:06:50
  */
 
 'use strict';
@@ -21,7 +21,7 @@ var assets = './assets/';
 
 module.exports = {
     entry: {
-        'hybridjs': ['./src/core.js', './src/api.js']
+        'hybrid': ['./src/core.js', './src/api.js']
     },
 
     output: {
