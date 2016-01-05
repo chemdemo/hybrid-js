@@ -27,7 +27,6 @@
     "webpack": "^1.12.3"
   },
   "scripts": {
-    "install": "npm install",
     "pub": "git push",
     "build": "webpack"
   }
