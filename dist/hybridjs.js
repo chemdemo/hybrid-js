@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["FlymeJS"] = factory();
+		exports["HybridJS"] = factory();
 	else
-		root["FlymeJS"] = factory();
+		root["HybridJS"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -132,7 +132,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	* @Author: dmyang
 	* @Date:   2015-11-10 10:21:22
 	* @Last Modified by:   dmyang
-	* @Last Modified time: 2016-03-31 19:29:40
+	* @Last Modified time: 2016-03-31 19:50:31
 	* @Description: Hybrid core code
 	*/
 
@@ -146,9 +146,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var IS_ARR = Array.isArray;
 	var EC = WIN.encodeURIComponent;
 
-	var OS_NAME = 'HybridApp';
+	var OS_NAME = 'HybridApp'; // 推荐替换成公司标识，如淘宝“TaobaoCN”
 	var API_ROOT = 'HybridJS';
-	var SCHEMA = 'hybrid';
+	var SCHEMA = 'hybrid'; // 私有协议，建议替换成公司私有协议，如腾讯QQ“qq”
 	var WEB_CB_SN_PREFIX = '__t_';
 	var REQ_SN_KEY = 'req_sn';
 	var RES_SN_KEY = 'res_sn';
