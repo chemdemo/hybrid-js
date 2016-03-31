@@ -1,54 +1,103 @@
 /*
  * @Author: dmyang
  * @Date:   2015-11-10 10:42:22
- * @Last Modified by:   dm
- * @Last Modified time: 2015-12-30 20:06:50
+ * @Last Modified by:   dmyang
+ * @Last Modified time: 2016-03-31 19:26:52
  */
 
 'use strict';
 
-var path = require('path');
-var fs = require('fs');
+const path = require('path')
+const fs = require('fs')
 
-var path = require('path');
-var webpack = require('webpack');
+const webpack = require('webpack')
 
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-var pageSrc = path.resolve(process.cwd(), 'src');
-var assets = './assets/';
+const debug = process.env.NODE_ENV === 'development'
+const assets = './dist/'
+const examples = './examples/'
 
-module.exports = {
-    entry: {
-        'hybrid': ['./src/core.js', './src/api.js']
-    },
+let genEntries = () => {
+    let jsDir = path.resolve(__dirname, debug ? 'examples' : 'api')
+    let names = fs.readdirSync(jsDir)
+    let map = {}
 
-    output: {
-        path: assets,
-        filename: '[name].min.js',
-        publicPath: ''
-    },
+    names.forEach((name) => {
+        let m = name.match(/(.+)\.js(?:x)?$/)
+        let entry = m ? m[1] : ''
+        let entryPath = entry ? path.resolve(jsDir, name) : ''
+
+        if(entry) map[(debug ? '' : 'flymejs-') + entry] = [entryPath]
+    })
+
+    return map
+}
+
+let entry = genEntries()
+
+if(!debug) {
+    entry['flymejs'] = entry['flymejs-base']
+    delete entry['flymejs-base']
+}
+
+let output = {
+    filename: 'dist/[name].js',
+    library: 'FlymeJS',
+    libraryTarget: 'umd', // 兼容各种模块化写法
+}
+
+if(debug) {
+    output = {
+        // path: path.resolve('__build'),
+        path: '/',
+        filename: '[name].js',
+        publicPath: '/'
+    }
+}
+
+let config = {
+    entry: entry,
+
+    output: output,
 
     resolve: {
-        root: [pageSrc],
-        alias: {},
+        root: __dirname,
         extensions: ['', '.js', '.jsx']
     },
 
-    resolveLoader: {
-        root: path.join(__dirname, 'node_modules')
+    module: {
+        loaders: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                loader: 'babel?presets[]=es2015'
+            },
+            {
+                test: /\.less$/,
+                loader: 'style!css!less'
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css'
+            },
+            {
+                test: /\.(png|jpg)$/,
+                loader: 'url?limit=8192&prefix=img/'
+            }
+        ]
     },
 
-    plugins: [
-        new UglifyJsPlugin()
-    ],
-
-    module: {
-        loaders: [{
-            test: /\.js?$/,
-            exclude: /node_modules/,
-            loader: 'babel'
-        }]
+    devServer: {
+        hot: true,
+        noInfo: false,
+        inline: true,
+        publicPath: output.publicPath,
+        stats: {
+            cached: false,
+            colors: true
+        }
     }
-};
+}
+
+module.exports = config

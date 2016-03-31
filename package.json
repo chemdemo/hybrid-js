@@ -1,8 +1,17 @@
 {
-  "name": "hybrid-js",
-  "version": "0.0.1",
-  "description": "jsbridge layer",
+  "name": "hybridJS",
+  "version": "1.0.0",
+  "description": "JavaScript layer for hybrid framework.",
   "homepage": "https://github.com/chemdemo/hybrid-js",
+  "scripts": {
+    "start-dev": "node server/app development",
+    "push": "git push",
+    "build": "gulp"
+  },
+  "config": {
+    "devPort": "3005",
+    "devHost": "0.0.0.0"
+  },
   "keywords": [
     "jsbridge",
     "hybrid"
@@ -14,20 +23,40 @@
     "type": "git",
     "url": "https://github.com/chemdemo/hybrid-js.git"
   },
-  "bugs": {
-    "url": "https://github.com/chemdemo/hybrid-js/issues"
-  },
-  "main": "assets/hybrid.min.js",
+  "main": "index.js",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "babel": "^6.0.15",
-    "babel-core": "^6.1.2",
+    "babel-core": "^6.1.21",
     "babel-loader": "^6.1.0",
-    "webpack": "^1.12.3"
-  },
-  "scripts": {
-    "pub": "git push",
-    "build": "webpack"
+    "babel-preset-es2015": "^6.3.13",
+    "bundle-loader": "^0.5.0",
+    "colors": "^1.1.2",
+    "css-loader": "^0.9.0",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "file-loader": "^0.7.2",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.1.0",
+    "koa": "^0.21.0",
+    "koa-ejs": "^3.0.0",
+    "koa-proxy": "^0.3.0",
+    "koa-rewrite": "1.1.0",
+    "koa-router": "^5.1.2",
+    "koa-send": "^1.3.1",
+    "koa-static": "^1.4.9",
+    "koa-webpack-dev-middleware": "^1.0.1",
+    "less": "^1.7.5",
+    "less-loader": "^0.7.7",
+    "opn": "^3.0.3",
+    "style-loader": "^0.8.0",
+    "url-loader": "^0.5.5",
+    "webpack": "^1.12.6",
+    "webpack-dev-server": "^1.6.5"
   }
 }
