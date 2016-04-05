@@ -1,8 +1,8 @@
 /*
 * @Author: dmyang
 * @Date:   2016-01-19 14:34:54
-* @Last Modified by:   dmyang
-* @Last Modified time: 2016-03-31 19:35:02
+* @Last Modified by:   chemdemo
+* @Last Modified time: 2016-04-02 00:09:39
 */
 
 'use strict';
@@ -40,7 +40,7 @@ on($('#open'), 'click', (e) => {
 })
 
 on($('#open-baidu'), 'click', (e) => {
-    FlymeJS.app.open('https://www.baidu.com')
+    HybridJS.app.open('https://www.baidu.com')
 })
 
 // 通知app，H5需要监听mback键
