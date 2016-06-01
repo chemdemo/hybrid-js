@@ -2,7 +2,7 @@
 * @Author: dmyang
 * @Date:   2016-01-15 10:44:29
 * @Last Modified by:   dmyang
-* @Last Modified time: 2016-06-01 11:21:32
+* @Last Modified time: 2016-06-01 12:07:08
 * @Description: hybridjs公共api
 */
 
@@ -40,6 +40,16 @@ $.wrapAPI('view.openNative', (options) => {
 **/
 $.wrapAPI('view.launchApp', (pkg) => {
     $.invokeApp(`${HANDLER_ROOT}ForwardHandler/startApp`, { pkg })
+})
+
+/**
+ * webview back
+ * usage:
+ * HybridJS.view.back()
+**/
+$.wrapAPI('view.back', (value = 1) => {
+    if($.isInApp) $.invokeApp(`${HANDLER_ROOT}MBack/back`, {value})
+    else window.history.back()
 })
 
 /**

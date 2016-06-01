@@ -2,7 +2,7 @@
 * @Author: dmyang
 * @Date:   2016-01-19 14:34:54
 * @Last Modified by:   dmyang
-* @Last Modified time: 2016-06-01 10:40:04
+* @Last Modified time: 2016-06-01 12:04:45
 */
 
 'use strict'
@@ -35,8 +35,16 @@ on($('#sn'), 'click', (e) => {
     HybridJS.device.getSN((sn) => console.log(sn))
 })
 
-on($('#sn'), 'click', (e) => {
+on($('#toast'), 'click', (e) => {
     HybridJS.ui.toast('This is toast msg.')
+})
+
+// event
+// emit when mback pressed
+HybridJS.on('mback', () => {
+    let v = prompt('收到mback事件，如何处理？\r0：不处理（默认）\r1：客户端处理\r2：退出页面')
+
+    FlymeJS.view.back(v ? v : 0)
 })
 
 // assign
