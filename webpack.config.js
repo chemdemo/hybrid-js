@@ -2,7 +2,7 @@
  * @Author: dmyang
  * @Date:   2015-11-10 10:42:22
  * @Last Modified by:   dmyang
- * @Last Modified time: 2016-04-06 15:25:19
+ * @Last Modified time: 2016-06-01 10:58:48
  */
 
 'use strict';
@@ -24,7 +24,7 @@ let genEntries = () => {
         let entry = m ? m[1] : ''
         let entryPath = entry ? path.resolve(jsDir, name) : ''
 
-        if(entry) map['flymejs-' + entry] = [entryPath]
+        if(entry) map['hybrid-' + entry] = [entryPath]
     })
 
     return map
@@ -32,15 +32,15 @@ let genEntries = () => {
 
 let entry = genEntries()
 
-entry['flymejs'] = entry['flymejs-base']
-delete entry['flymejs-base']
+entry['hybrid'] = entry['hybrid-base']
+delete entry['hybrid-base']
 
 let config = {
     entry: entry,
 
     output: {
         filename: 'dist/[name].js',
-        library: 'FlymeJS',
+        library: 'HybridJS',
         libraryTarget: 'umd', // 兼容各种模块化写法
     },
 
