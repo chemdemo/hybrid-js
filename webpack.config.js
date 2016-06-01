@@ -2,7 +2,7 @@
  * @Author: dmyang
  * @Date:   2015-11-10 10:42:22
  * @Last Modified by:   dmyang
- * @Last Modified time: 2016-03-31 19:55:11
+ * @Last Modified time: 2016-04-06 15:25:19
  */
 
 'use strict';
@@ -12,14 +12,10 @@ const fs = require('fs')
 
 const webpack = require('webpack')
 
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const debug = process.env.NODE_ENV === 'development'
 const assets = './dist/'
-const examples = './examples/'
 
 let genEntries = () => {
-    let jsDir = path.resolve(__dirname, debug ? 'examples' : 'api')
+    let jsDir = path.resolve(__dirname, 'api')
     let names = fs.readdirSync(jsDir)
     let map = {}
 
@@ -28,7 +24,7 @@ let genEntries = () => {
         let entry = m ? m[1] : ''
         let entryPath = entry ? path.resolve(jsDir, name) : ''
 
-        if(entry) map[(debug ? '' : 'hybridjs-') + entry] = [entryPath]
+        if(entry) map['flymejs-' + entry] = [entryPath]
     })
 
     return map
@@ -36,30 +32,17 @@ let genEntries = () => {
 
 let entry = genEntries()
 
-if(!debug) {
-    entry['hybridjs'] = entry['hybridjs-base']
-    delete entry['hybridjs-base']
-}
-
-let output = {
-    filename: 'dist/[name].js',
-    library: 'HybridJS',
-    libraryTarget: 'umd', // 兼容各种模块化写法
-}
-
-if(debug) {
-    output = {
-        // path: path.resolve('__build'),
-        path: '/',
-        filename: '[name].js',
-        publicPath: '/'
-    }
-}
+entry['flymejs'] = entry['flymejs-base']
+delete entry['flymejs-base']
 
 let config = {
     entry: entry,
 
-    output: output,
+    output: {
+        filename: 'dist/[name].js',
+        library: 'FlymeJS',
+        libraryTarget: 'umd', // 兼容各种模块化写法
+    },
 
     resolve: {
         root: __dirname,
@@ -86,17 +69,6 @@ let config = {
                 loader: 'url?limit=8192&prefix=img/'
             }
         ]
-    },
-
-    devServer: {
-        hot: true,
-        noInfo: false,
-        inline: true,
-        publicPath: output.publicPath,
-        stats: {
-            cached: false,
-            colors: true
-        }
     }
 }
 
