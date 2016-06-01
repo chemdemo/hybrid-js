@@ -2,55 +2,53 @@
 * @Author: dmyang
 * @Date:   2016-01-15 10:44:29
 * @Last Modified by:   dmyang
-* @Last Modified time: 2016-03-31 19:25:26
+* @Last Modified time: 2016-06-01 10:33:07
 * @Description: hybridjs公共api
 */
 
-'use strict';
+'use strict'
 
 import HybridJS from '../lib/core'
 
-let $ = HybridJS
+const HANDLER_ROOT = 'com.companyName.hybridSDK.handler.'
 
-// 通知app，H5需要监听mback键
-$.wrapAPI('app.listenMBack', () => {
-    $.invokeApp('sdk.set_status', {key: 'interceptOnBack', value: 1})
-})
+const $ = HybridJS
 
-// 取消app监听mback键
-$.wrapAPI('app.cancelListenMBack', () => {
-    $.invokeApp('sdk.set_status', {key: 'interceptOnBack', value: 0})
-})
-
-// 默认将mback交回客户端处理
-$.wrapAPI('app.back', (value = 1) => {
-    if($.isInApp) $.invokeApp('sdk.back', {value})
-    else window.history.back()
-})
-
-// $.on('app.mback', () => {
-//     // todo...
-//     $.app.back(1)
-// });
-
-$.wrapAPI('app.open', (url, type = 0) => {
-    if($.isInApp) $.invokeApp('sdk.jump', {url, type})
+/*
+ * launch another app via package name
+ * usage:
+ * HybridJS.view.openUrl('./detail.html')
+*/
+$.wrapAPI('view.openUrl', (url) => {
+    if($.isInApp) $.invokeApp(`${HANDLER_ROOT}UrlHandler/startPage`, { url })
     else location.href = url
 })
 
-// 设置native状态
-$.wrapAPI('app.set', (key, value) => {
-    $.invokeApp('sdk.set_status', {key, value})
+/*
+ * launch another app via package name
+ * usage:
+ * HybridJS.view.launchApp('com.tencent.weixin')
+*/
+$.wrapAPI('view.launchApp', (pkg) => {
+    $.invokeApp(`${HANDLER_ROOT}UrlHandler/startApp`, { pkg })
 })
 
-/**
- * HybridJS.app.getStatus('network', function(result) {}});
- */
-$.wrapAPI('app.get', (key, callback) => {
-    $.invokeApp('sdk.get_status', {key, callback})
+/*
+ * get device sn
+ * usage:
+ * HybridJS.device.getSN((sn) => console.log(sn))
+*/
+$.wrapAPI('device.getSN', (callback) => {
+    $.invokeApp(`${HANDLER_ROOT}DeviceInfoHandler/getSN`, {callback})
 })
 
-// 进入H5页面之后先reset mback的监听
-HybridJS.app.cancelListenMBack()
+/*
+ * Native UI component
+ * usage:
+ * HybridJS.ui.toast('msg ...')
+*/
+$.wrapAPI('ui.toast', (msg) => {
+    if(msg) $.invokeApp(`${HANDLER_ROOT}InteractHandler/toast`, { msg })
+})
 
 module.exports = $
