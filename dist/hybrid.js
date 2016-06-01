@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["FlymeJS"] = factory();
+		exports["HybridJS"] = factory();
 	else
-		root["FlymeJS"] = factory();
+		root["HybridJS"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -54,7 +54,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(3);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
@@ -127,7 +127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	* @Author: dmyang
 	* @Date:   2015-11-10 10:21:22
 	* @Last Modified by:   dmyang
-	* @Last Modified time: 2016-06-01 10:12:00
+	* @Last Modified time: 2016-06-01 10:56:50
 	* @Description: Hybrid core code
 	*/
 
@@ -193,7 +193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	freeze('off', function () {
 	    return off;
 	});
-	// freeze('emit', () => {return emit})
+	// freeze('emit', () => emit)
 	freeze('util', function () {
 	    return { serialize: serialize, resolveUrl: resolveUrl, parseUrl: parseUrl };
 	});
@@ -610,41 +610,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = Hybrid;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-	* @Author: dmyang
-	* @Date:   2015-11-10 10:21:42
-	* @Last Modified by:   dmyang
-	* @Last Modified time: 2016-06-01 10:33:02
-	* @Description: 音乐app相关api
-	*/
-
-	'use strict';
-
-	var _base = __webpack_require__(1);
-
-	var _base2 = _interopRequireDefault(_base);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var $ = _base2.default;
-
-	$.wrapAPI('music.play', function (id, type, name) {
-	    var position = arguments.length <= 3 || arguments[3] === undefined ? 0 : arguments[3];
-
-	    $.invokeApp('music.play', { id: id, type: type, name: name, position: position });
-	});
-
-	// etc.
-	// $.on('music.stateChange', (data) => {
-	//     ;
-	// })
-
-	module.exports = $;
 
 /***/ }
 /******/ ])
