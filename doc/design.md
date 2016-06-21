@@ -1,18 +1,18 @@
-## 通讯基础（以Android为例）
+### 通讯基础
 
 - Android调用H5
 
-    ``` java
-    webview.loadUrl("javascript: alert('hello world')");
-    ```
+``` java
+webview.loadUrl("javascript: alert('hello world')");
+```
 
-    通过Webview类的`loadUrl`方法可以直接执行js代码，从而达到Android调用H5
+通过Webview类的`loadUrl`方法可以直接执行js代码，从而达到Android调用H5
 
 - H5调用Android
 
-    理论上，通过Android的[shouldOverrideUrlLoading](https://developer.android.com/reference/android/webkit/WebViewClient.html#shouldOverrideUrlLoading(android.webkit.WebView, android.webkit.WebResourceRequest))接口，Webview是可以拦截一切H5发起的请求的，无论是标准协议（如`http://`、`https://`等）还是私有协议（如`myschema://`）。
+理论上，通过Android的[shouldOverrideUrlLoading](https://developer.android.com/reference/android/webkit/WebViewClient.html#shouldOverrideUrlLoading(android.webkit.WebView, android.webkit.WebResourceRequest))接口，Webview是可以拦截一切H5发起的请求的，无论是标准协议（如`http://`、`https://`等）还是私有协议（如`myschema://`）。
 
-    基于这个原理，H5采用私有协议模拟发起URL请求，Android解析这类URL并定制相应的响应值，这就实现了H5调用Android。
+基于这个原理，H5采用私有协议模拟发起URL请求，Android解析这类URL并定制相应的响应值，这就实现了H5调用Android。
 
 
 采用私有协议有几个好处：
@@ -21,7 +21,7 @@
 2. 为APP外部打开APP内部界面提供接口（如“浏览器页面内启动原生APP界面”这类需求就是基于这个原理实现的）
 
 
-## 通讯的实现（即JSBridge）
+### 通讯的实现（即JSBridge）
 
 上面说的只是理论基础，如果每次互相调用都去查询对方给出的api和参数，随着时间的推移会带来一定的维护成本，所以需要封装Android层和H5业务层之间互相调用的细节，抹平Android各平台和JS的调用差异，对H5业务层提供一致性的调用接口。
 
@@ -32,10 +32,10 @@
 ![hybrid jsbridge framework](./jsbridge-arch.png)
 
 
-###  互相调用
+#### 互相调用
 
 
-#### H5调用Android
+##### H5调用Android
 
 方法：
 
@@ -65,7 +65,7 @@ iframe.src = `myschema://com.mycompany.hybrid.InteractHandler/toast?value={msg: 
 iframe.src = `myschema://interact/toast?value={msg: 'hello world'}`
 ```
 
-#### Android调用H5
+##### Android调用H5
 
 方法：
 
@@ -78,7 +78,7 @@ webview.loadUrl("javascript:HybridJS.invokeWeb(api[, ...args]])")
 Android调用H5接口的需求很少，但也不排除存在性。
 
 
-### 异步接口的实现
+#### 异步接口的实现
 
 因为JS是单线程，在设计与非接口的时候都尽可能采用异步的方式。
 
@@ -95,7 +95,7 @@ Android调用H5接口的需求很少，但也不排除存在性。
 ![api call sn](./call-sn.png)
 
 
-### 事件（push）
+#### 事件（push）
 
 我们知道，H5只能拿到页面软键盘的一系列事件，需要获取硬件事件的需求也不是没有，比如国产魅族手机的mback键，经常有碰到产品经理奇（bian）怪（tai）的需求，让H5拦截mback键做一些逻辑。Android能捕获这一事件，所以理所应当的可能传递给H5，从而实现H5的mback事件。
 
@@ -136,7 +136,7 @@ HybridJS.off(eventname[, handler])
 ```
 
 
-## UA约定
+### UA约定
 
 为了便于H5的调试，Android容器统一在webview的UA里边追加一些标识：
 

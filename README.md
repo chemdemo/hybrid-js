@@ -5,7 +5,7 @@
 基于Hybrid webapp架构的JSBridge层
 
 
-## 重要说明
+### 重要说明
 
 Hybrid框架分为两部分，本项目是JSBridge部分个人抽离公司业务之后拿出来的，另一部分是Native开发的H5容器。
 
@@ -14,7 +14,7 @@ Hybrid框架分为两部分，本项目是JSBridge部分个人抽离公司业务
 有需要的可以按照[api设计指南](./doc/design.md)来自己实现容器部分。
 
 
-## 文档
+### 文档
 
 - 基于HybridJS封装Android提供的API：参看[代码示例](./api/base.js)
 
@@ -25,7 +25,7 @@ Hybrid框架分为两部分，本项目是JSBridge部分个人抽离公司业务
 - [Hybrid APP架构设计思路](https://github.com/chemdemo/chemdemo.github.io/issues/12)
 
 
-## 本地开发命令
+### 本地开发命令
 
 预览示例：
 
@@ -40,9 +40,9 @@ $ npm run build
 ```
 
 
-## 引用
+### 引用
 
-** 注意：当且仅当已经实现了H5容器的前提下才能应用本项目js！**
+**注意：当且仅当已经实现了H5容器的前提下才能应用本项目js！**
 
 - ES6方式：
 ```
@@ -68,6 +68,6 @@ require(['./dist/hybrid.js'], function(HybridJS) {})
 ```
 
 
-## License
+### License
 
 MIT.
