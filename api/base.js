@@ -2,7 +2,7 @@
 * @Author: dmyang
 * @Date:   2016-01-15 10:44:29
 * @Last Modified by:   dmyang
-* @Last Modified time: 2016-06-01 12:07:08
+* @Last Modified time: 2016-06-21 19:57:06
 * @Description: hybridjs公共api
 */
 
@@ -22,15 +22,6 @@ const $ = HybridJS
 $.wrapAPI('view.openUrl', (url) => {
     if($.isInApp) $.invokeApp(`${HANDLER_ROOT}ForwardHandler/startPage`, { url })
     else location.href = url
-})
-
-/**
- * open Native page
- * usage:
- * HybridJS.view.openNative({action: 'com.companyName.hybridSDK.action.demo', schema: 'hybrid:'})
-**/
-$.wrapAPI('view.openNative', (options) => {
-    $.invokeApp(`${HANDLER_ROOT}ForwardHandler/startActivity`, options)
 })
 
 /**
